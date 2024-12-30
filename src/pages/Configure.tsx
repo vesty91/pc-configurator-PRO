@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
-import { Monitor, Cpu, HardDrive, Memory, Motherboard, Power, Fan } from "lucide-react"
+import { Monitor, Cpu, HardDrive, CircuitBoard, Battery, Fan } from "lucide-react"
 
 const Configure = () => {
   return (
@@ -40,7 +40,7 @@ const Configure = () => {
             <CardContent>
               <Select>
                 <SelectTrigger>
-                  <Motherboard className="mr-2 h-4 w-4" />
+                  <CircuitBoard className="mr-2 h-4 w-4" />
                   <SelectValue placeholder="Choisir une carte mère" />
                 </SelectTrigger>
                 <SelectContent>
@@ -60,7 +60,7 @@ const Configure = () => {
             <CardContent>
               <Select>
                 <SelectTrigger>
-                  <Memory className="mr-2 h-4 w-4" />
+                  <Cpu className="mr-2 h-4 w-4" />
                   <SelectValue placeholder="Choisir la RAM" />
                 </SelectTrigger>
                 <SelectContent>
@@ -100,7 +100,7 @@ const Configure = () => {
             <CardContent>
               <Select>
                 <SelectTrigger>
-                  <Power className="mr-2 h-4 w-4" />
+                  <Battery className="mr-2 h-4 w-4" />
                   <SelectValue placeholder="Choisir l'alimentation" />
                 </SelectTrigger>
                 <SelectContent>
