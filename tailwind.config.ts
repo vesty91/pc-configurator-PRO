@@ -51,8 +51,10 @@ export default {
           foreground: "#FFFFFF",
         },
         popover: {
-          DEFAULT: "#1E293B",
+          DEFAULT: "#0F172A",
           foreground: "#FFFFFF",
+          border: "#1E293B",
+          hover: "#1E293B",
         },
       },
       borderRadius: {
