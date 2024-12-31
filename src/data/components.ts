@@ -18,7 +18,7 @@ export const componentPrices = {
   "air": 89,
   "aio-240": 129,
   "aio-360": 179
-} as const
+}
 
 export const componentOptions = {
   cpu: [
@@ -52,7 +52,7 @@ export const componentOptions = {
     { value: "aio-240", label: "NZXT Kraken X53 240mm", price: 129 },
     { value: "aio-360", label: "NZXT Kraken X73 360mm", price: 179 }
   ]
-} as const
+}
 
 export const componentDescriptions = {
   cpu: "Le cerveau de votre ordinateur, crucial pour les performances",
@@ -61,7 +61,7 @@ export const componentDescriptions = {
   storage: "Espace de stockage pour vos fichiers et applications",
   psu: "L'alimentation électrique de votre système",
   cooling: "Système de refroidissement pour votre processeur"
-} as const
+}
 
 export const componentNames = {
   cpu: "Processeur",
@@ -70,4 +70,4 @@ export const componentNames = {
   storage: "Stockage",
   psu: "Alimentation",
   cooling: "Refroidissement"
-} as const
+}
