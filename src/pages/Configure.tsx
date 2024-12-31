@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button"
 import { Monitor, Cpu, HardDrive, CircuitBoard, Battery, Fan } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useToast } from "@/hooks/use-toast"
 import ComponentCard from "@/components/configurator/ComponentCard"
 import PriceSummary from "@/components/configurator/PriceSummary"
 import { componentOptions, componentPrices, componentDescriptions, componentNames } from "@/data/components"
+import { checkMotherboardCompatibility, checkPowerSupply, checkCooling } from "@/utils/compatibility"
 
 const Configure = () => {
   const { toast } = useToast()
@@ -16,6 +17,41 @@ const Configure = () => {
     psu: "",
     cooling: ""
   })
+
+  const [warnings, setWarnings] = useState<string[]>([])
+
+  useEffect(() => {
+    const newWarnings: string[] = [];
+    
+    // Vérification de la compatibilité carte mère
+    if (selectedComponents.cpu && selectedComponents.motherboard) {
+      const motherboardWarning = checkMotherboardCompatibility(
+        selectedComponents.cpu,
+        selectedComponents.motherboard
+      );
+      if (motherboardWarning) newWarnings.push(motherboardWarning);
+    }
+    
+    // Vérification de l'alimentation
+    if (selectedComponents.cpu && selectedComponents.psu) {
+      const psuWarning = checkPowerSupply(
+        selectedComponents.cpu,
+        selectedComponents.psu
+      );
+      if (psuWarning) newWarnings.push(psuWarning);
+    }
+    
+    // Vérification du refroidissement
+    if (selectedComponents.cpu && selectedComponents.cooling) {
+      const coolingWarning = checkCooling(
+        selectedComponents.cpu,
+        selectedComponents.cooling
+      );
+      if (coolingWarning) newWarnings.push(coolingWarning);
+    }
+    
+    setWarnings(newWarnings);
+  }, [selectedComponents]);
 
   const handleComponentChange = (value: string, component: keyof typeof selectedComponents) => {
     setSelectedComponents(prev => ({
@@ -32,6 +68,15 @@ const Configure = () => {
         variant: "destructive",
         title: "Configuration incomplète",
         description: "Veuillez sélectionner tous les composants avant d'ajouter au panier."
+      })
+      return
+    }
+
+    if (warnings.length > 0) {
+      toast({
+        variant: "destructive",
+        title: "Attention",
+        description: "Votre configuration présente des incompatibilités. Veuillez les corriger avant de continuer."
       })
       return
     }
@@ -69,7 +114,28 @@ const Configure = () => {
             />
           ))}
 
-          <Button className="w-full" onClick={handleAddToCart}>
+          {warnings.length > 0 && (
+            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+              <div className="flex">
+                <div className="ml-3">
+                  <p className="text-sm text-yellow-700">
+                    Avertissements de compatibilité :
+                  </p>
+                  <ul className="mt-2 text-sm text-yellow-700 list-disc list-inside">
+                    {warnings.map((warning, index) => (
+                      <li key={index}>{warning}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <Button 
+            className="w-full" 
+            onClick={handleAddToCart}
+            variant={warnings.length > 0 ? "destructive" : "default"}
+          >
             Ajouter au panier
           </Button>
         </div>
