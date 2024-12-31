@@ -82,6 +82,28 @@ export const componentOptions = {
   ]
 }
 
+export const componentRecommendations = {
+  "amd-5600x": ["Gaming 1080p", "Bureautique avancée"],
+  "amd-5800x": ["Gaming 1440p", "Streaming", "Montage vidéo léger"],
+  "amd-5900x": ["Gaming 4K", "Montage vidéo", "Rendu 3D"],
+  "amd-5950x": ["Station de travail", "Rendu 3D professionnel"],
+  "intel-12600k": ["Gaming 1440p", "Streaming", "Montage vidéo léger"],
+  "intel-12700k": ["Gaming 4K", "Montage vidéo", "Rendu 3D"],
+  "intel-12900k": ["Station de travail", "Gaming 4K+"],
+  "intel-13900k": ["Station de travail", "Rendu 3D professionnel"],
+}
+
+export const componentPerformanceScores = {
+  "amd-5600x": { gaming: 8, productivity: 7 },
+  "amd-5800x": { gaming: 9, productivity: 8 },
+  "amd-5900x": { gaming: 9, productivity: 9 },
+  "amd-5950x": { gaming: 9, productivity: 10 },
+  "intel-12600k": { gaming: 8, productivity: 7 },
+  "intel-12700k": { gaming: 9, productivity: 8 },
+  "intel-12900k": { gaming: 10, productivity: 9 },
+  "intel-13900k": { gaming: 10, productivity: 10 },
+}
+
 export const componentDescriptions = {
   cpu: "Le cerveau de votre ordinateur, crucial pour les performances",
   motherboard: "La base qui relie tous vos composants",
