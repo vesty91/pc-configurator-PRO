@@ -3,7 +3,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge"
 import { LucideIcon } from "lucide-react"
 import { componentRecommendations, componentPerformanceScores } from "@/data/components"
-import Image from "next/image"
 
 interface ComponentOption {
   value: string
@@ -22,6 +21,20 @@ interface ComponentCardProps {
   type: string
 }
 
+interface PerformanceScores {
+  gaming?: number
+  productivity?: number
+  features?: number
+  overclocking?: number
+  performance?: number
+  multitasking?: number
+  speed?: number
+  capacity?: number
+  efficiency?: number
+  headroom?: number
+  noise?: number
+}
+
 const ComponentCard = ({
   title,
   description,
@@ -35,7 +48,7 @@ const ComponentCard = ({
     return componentRecommendations[value as keyof typeof componentRecommendations] || []
   }
 
-  const getPerformanceScore = (value: string) => {
+  const getPerformanceScore = (value: string): PerformanceScores | undefined => {
     return componentPerformanceScores[value as keyof typeof componentPerformanceScores]
   }
 

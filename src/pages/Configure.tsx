@@ -6,9 +6,13 @@ import ComponentCard from "@/components/configurator/ComponentCard"
 import PriceSummary from "@/components/configurator/PriceSummary"
 import { componentOptions, componentPrices, componentDescriptions, componentNames } from "@/data/components"
 import { checkMotherboardCompatibility, checkPowerSupply, checkCooling } from "@/utils/compatibility"
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
+
+const ITEMS_PER_PAGE = 3
 
 const Configure = () => {
   const { toast } = useToast()
+  const [currentPage, setCurrentPage] = useState(1)
   const [selectedComponents, setSelectedComponents] = useState({
     cpu: "",
     motherboard: "",
@@ -20,38 +24,44 @@ const Configure = () => {
 
   const [warnings, setWarnings] = useState<string[]>([])
 
+  const componentTypes = Object.keys(componentOptions) as Array<keyof typeof componentOptions>
+  const totalPages = Math.ceil(componentTypes.length / ITEMS_PER_PAGE)
+
+  const getCurrentPageComponents = () => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE
+    const end = start + ITEMS_PER_PAGE
+    return componentTypes.slice(start, end)
+  }
+
   useEffect(() => {
-    const newWarnings: string[] = [];
+    const newWarnings: string[] = []
     
-    // Vérification de la compatibilité carte mère
     if (selectedComponents.cpu && selectedComponents.motherboard) {
       const motherboardWarning = checkMotherboardCompatibility(
         selectedComponents.cpu,
         selectedComponents.motherboard
-      );
-      if (motherboardWarning) newWarnings.push(motherboardWarning);
+      )
+      if (motherboardWarning) newWarnings.push(motherboardWarning)
     }
     
-    // Vérification de l'alimentation
     if (selectedComponents.cpu && selectedComponents.psu) {
       const psuWarning = checkPowerSupply(
         selectedComponents.cpu,
         selectedComponents.psu
-      );
-      if (psuWarning) newWarnings.push(psuWarning);
+      )
+      if (psuWarning) newWarnings.push(psuWarning)
     }
     
-    // Vérification du refroidissement
     if (selectedComponents.cpu && selectedComponents.cooling) {
       const coolingWarning = checkCooling(
         selectedComponents.cpu,
         selectedComponents.cooling
-      );
-      if (coolingWarning) newWarnings.push(coolingWarning);
+      )
+      if (coolingWarning) newWarnings.push(coolingWarning)
     }
     
-    setWarnings(newWarnings);
-  }, [selectedComponents]);
+    setWarnings(newWarnings)
+  }, [selectedComponents])
 
   const handleComponentChange = (value: string, component: keyof typeof selectedComponents) => {
     setSelectedComponents(prev => ({
@@ -102,7 +112,7 @@ const Configure = () => {
       
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-6">
-          {(Object.keys(componentOptions) as Array<keyof typeof componentOptions>).map((component) => (
+          {getCurrentPageComponents().map((component) => (
             <ComponentCard
               key={component}
               title={componentNames[component]}
@@ -114,6 +124,33 @@ const Configure = () => {
               type={component}
             />
           ))}
+
+          <Pagination className="mt-6">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious 
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                />
+              </PaginationItem>
+              {Array.from({ length: totalPages }).map((_, i) => (
+                <PaginationItem key={i}>
+                  <PaginationLink
+                    onClick={() => setCurrentPage(i + 1)}
+                    isActive={currentPage === i + 1}
+                  >
+                    {i + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationNext 
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
 
           {warnings.length > 0 && (
             <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
