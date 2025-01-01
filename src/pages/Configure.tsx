@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button"
-import { Monitor, Cpu, HardDrive, CircuitBoard, Battery, Fan } from "lucide-react"
-import { useState, useEffect } from "react"
 import { useToast } from "@/hooks/use-toast"
 import ComponentCard from "@/components/configurator/ComponentCard"
 import PriceSummary from "@/components/configurator/PriceSummary"
 import { componentOptions, componentPrices, componentDescriptions, componentNames } from "@/data/components"
 import { checkMotherboardCompatibility, checkPowerSupply, checkCooling } from "@/utils/compatibility"
+import { ShoppingCart } from "lucide-react"
 
 const Configure = () => {
   const { toast } = useToast()
@@ -59,6 +58,12 @@ const Configure = () => {
     }))
   }
 
+  const calculateTotal = () => {
+    return Object.values(selectedComponents).reduce((total, componentId) => {
+      return total + (componentPrices[componentId] || 0)
+    }, 0)
+  }
+
   const handleAddToCart = () => {
     const missingComponents = Object.entries(selectedComponents).filter(([_, value]) => !value)
     
@@ -82,17 +87,8 @@ const Configure = () => {
 
     toast({
       title: "Configuration ajoutée au panier",
-      description: "Votre configuration personnalisée a été ajoutée au panier avec succès."
+      description: `Configuration complète (${calculateTotal()}€) ajoutée au panier avec succès.`
     })
-  }
-
-  const componentIcons = {
-    cpu: Cpu,
-    motherboard: CircuitBoard,
-    ram: Cpu,
-    storage: HardDrive,
-    psu: Battery,
-    cooling: Fan
   }
 
   return (
@@ -132,11 +128,13 @@ const Configure = () => {
           )}
 
           <Button 
-            className="w-full" 
+            className="w-full flex items-center justify-center gap-2 py-6 text-lg"
             onClick={handleAddToCart}
             variant={warnings.length > 0 ? "destructive" : "default"}
+            size="lg"
           >
-            Ajouter au panier
+            <ShoppingCart className="h-6 w-6" />
+            Ajouter au panier ({calculateTotal()}€)
           </Button>
         </div>
 
