@@ -4,11 +4,13 @@ import ComponentCard from "@/components/configurator/ComponentCard"
 import PriceSummary from "@/components/configurator/PriceSummary"
 import { componentOptions, componentPrices, componentDescriptions, componentNames } from "@/data/components"
 import { checkMotherboardCompatibility, checkPowerSupply, checkCooling } from "@/utils/compatibility"
-import { ShoppingCart } from "lucide-react"
+import { ShoppingCart, Cpu, CircuitBoard, HardDrive, Battery, Fan } from "lucide-react"
+import { useState, useEffect } from "react"
+import type { ReactNode } from "react"
 
 const Configure = () => {
   const { toast } = useToast()
-  const [selectedComponents, setSelectedComponents] = useState({
+  const [selectedComponents, setSelectedComponents] = useState<Record<string, string>>({
     cpu: "",
     motherboard: "",
     ram: "",
@@ -18,8 +20,6 @@ const Configure = () => {
   })
 
   const [warnings, setWarnings] = useState<string[]>([])
-
-  const componentTypes = Object.keys(componentOptions) as Array<keyof typeof componentOptions>
 
   useEffect(() => {
     const newWarnings: string[] = []
@@ -60,7 +60,7 @@ const Configure = () => {
 
   const calculateTotal = () => {
     return Object.values(selectedComponents).reduce((total, componentId) => {
-      return total + (componentPrices[componentId] || 0)
+      return total + (componentPrices[componentId as keyof typeof componentPrices] || 0)
     }, 0)
   }
 
@@ -91,21 +91,30 @@ const Configure = () => {
     })
   }
 
+  const componentIcons = {
+    cpu: Cpu,
+    motherboard: CircuitBoard,
+    ram: Cpu,
+    storage: HardDrive,
+    psu: Battery,
+    cooling: Fan
+  }
+
   return (
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-3xl font-bold mb-8">Configurateur PC</h1>
       
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-6">
-          {componentTypes.map((component) => (
+          {Object.keys(componentOptions).map((component) => (
             <ComponentCard
               key={component}
-              title={componentNames[component]}
-              description={componentDescriptions[component]}
-              icon={componentIcons[component]}
-              options={componentOptions[component]}
+              title={componentNames[component as keyof typeof componentNames]}
+              description={componentDescriptions[component as keyof typeof componentDescriptions]}
+              icon={componentIcons[component as keyof typeof componentIcons]}
+              options={componentOptions[component as keyof typeof componentOptions]}
               value={selectedComponents[component]}
-              onChange={(value) => handleComponentChange(value, component)}
+              onChange={(value) => handleComponentChange(value, component as keyof typeof selectedComponents)}
               type={component}
             />
           ))}
