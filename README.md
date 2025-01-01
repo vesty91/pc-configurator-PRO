@@ -36,23 +36,23 @@ npm i
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+**Modifier un fichier directement dans GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- Accédez au ou aux fichiers souhaités.
+- Cliquez sur le bouton "Modifier" (icône en forme de crayon) en haut à droite de la vue du fichier.
+- Faites vos changements et validez les changements.
 
-**Use GitHub Codespaces**
+**Utiliser les codespaces GitHub**
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- Accédez à la page principale de votre dépôt.
+- Cliquez sur le bouton "Code" (vert) en haut à droite.
+- Sélectionnez l’onglet "Codespaces".
+- Cliquez sur "Nouveau codespace" pour lancer un nouvel environnement Codespace.
+- Modifier les fichiers directement dans le Codespace et valider et pousser vos modifications une fois que vous avez terminé.
 
-## What technologies are used for this project?
+## Quelles technologies sont utilisées pour ce projet?
 
-This project is built with .
+Ce projet est construit avec .
 
 - Vite
 - TypeScript
@@ -60,10 +60,10 @@ This project is built with .
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
+## Comment puis-je déployer ce projet ?
 
-Simply open [Lovable](https://lovable.dev/projects/ecd0c2f7-9a1a-42dd-a62a-3d9647bd921e) and click on Share -> Publish.
+Il suffit d’ouvrir [Lovable] (https://lovable.dev/projects/ecd0c2f7-9a1a-42dd-a62a-3d9647bd921e) et de cliquer sur Partager -> Publier.
 
-## I want to use a custom domain - is that possible?
+## Je veux utiliser un domaine personnalisé - est-ce possible?
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+Nous ne prenons pas en charge les domaines personnalisés (pour l’instant). Si vous souhaitez déployer votre projet sous votre propre domaine, nous vous recommandons d’utiliser Netlify. Consultez notre documentation pour plus de détails : [Custom domains] (https://docs.lovable.dev/tips-tricks/custom-domain/)
