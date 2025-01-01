@@ -17,6 +17,7 @@ interface ComponentCardProps {
   options: ComponentOption[]
   value: string
   onChange: (value: string) => void
+  type: string
 }
 
 const ComponentCard = ({
@@ -26,6 +27,7 @@ const ComponentCard = ({
   options,
   value,
   onChange,
+  type
 }: ComponentCardProps) => {
   const getRecommendations = (value: string) => {
     return componentRecommendations[value as keyof typeof componentRecommendations] || []
@@ -33,6 +35,58 @@ const ComponentCard = ({
 
   const getPerformanceScore = (value: string) => {
     return componentPerformanceScores[value as keyof typeof componentPerformanceScores]
+  }
+
+  const renderPerformanceScores = (value: string) => {
+    const scores = getPerformanceScore(value)
+    if (!scores) return null
+
+    switch (type) {
+      case 'cpu':
+        return (
+          <>
+            <Badge variant="secondary">Gaming: {scores.gaming}/10</Badge>
+            <Badge variant="secondary">Productivité: {scores.productivity}/10</Badge>
+          </>
+        )
+      case 'motherboard':
+        return (
+          <>
+            <Badge variant="secondary">Fonctionnalités: {scores.features}/10</Badge>
+            <Badge variant="secondary">Overclocking: {scores.overclocking}/10</Badge>
+          </>
+        )
+      case 'ram':
+        return (
+          <>
+            <Badge variant="secondary">Performance: {scores.performance}/10</Badge>
+            <Badge variant="secondary">Multitâche: {scores.multitasking}/10</Badge>
+          </>
+        )
+      case 'storage':
+        return (
+          <>
+            <Badge variant="secondary">Vitesse: {scores.speed}/10</Badge>
+            <Badge variant="secondary">Capacité: {scores.capacity}/10</Badge>
+          </>
+        )
+      case 'psu':
+        return (
+          <>
+            <Badge variant="secondary">Efficacité: {scores.efficiency}/10</Badge>
+            <Badge variant="secondary">Marge: {scores.headroom}/10</Badge>
+          </>
+        )
+      case 'cooling':
+        return (
+          <>
+            <Badge variant="secondary">Performance: {scores.performance}/10</Badge>
+            <Badge variant="secondary">Bruit: {scores.noise}/10</Badge>
+          </>
+        )
+      default:
+        return null
+    }
   }
 
   return (
@@ -54,16 +108,9 @@ const ComponentCard = ({
               <SelectItem key={option.value} value={option.value}>
                 <div className="flex flex-col gap-2">
                   <div>{option.label} - {option.price}€</div>
-                  {getPerformanceScore(option.value) && (
-                    <div className="flex gap-2 mt-1">
-                      <Badge variant="secondary">
-                        Gaming: {getPerformanceScore(option.value)?.gaming}/10
-                      </Badge>
-                      <Badge variant="secondary">
-                        Productivité: {getPerformanceScore(option.value)?.productivity}/10
-                      </Badge>
-                    </div>
-                  )}
+                  <div className="flex gap-2 mt-1">
+                    {renderPerformanceScores(option.value)}
+                  </div>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {getRecommendations(option.value).map((rec, index) => (
                       <Badge key={index} variant="outline">{rec}</Badge>
