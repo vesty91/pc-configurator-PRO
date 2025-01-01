@@ -36,49 +36,49 @@ export const componentPrices = {
 
 export const componentOptions = {
   cpu: [
-    { value: "amd-5600x", label: "AMD Ryzen 5 5600X", price: 299 },
-    { value: "amd-5800x", label: "AMD Ryzen 7 5800X", price: 449 },
-    { value: "amd-5900x", label: "AMD Ryzen 9 5900X", price: 549 },
-    { value: "amd-5950x", label: "AMD Ryzen 9 5950X", price: 799 },
-    { value: "intel-12600k", label: "Intel Core i5-12600K", price: 319 },
-    { value: "intel-12700k", label: "Intel Core i7-12700K", price: 469 },
-    { value: "intel-12900k", label: "Intel Core i9-12900K", price: 619 },
-    { value: "intel-13900k", label: "Intel Core i9-13900K", price: 789 }
+    { value: "amd-5600x", label: "AMD Ryzen 5 5600X", price: 299, image: "/images/cpu/5600x.png" },
+    { value: "amd-5800x", label: "AMD Ryzen 7 5800X", price: 449, image: "/images/cpu/5800x.png" },
+    { value: "amd-5900x", label: "AMD Ryzen 9 5900X", price: 549, image: "/images/cpu/5900x.png" },
+    { value: "amd-5950x", label: "AMD Ryzen 9 5950X", price: 799, image: "/images/cpu/5950x.png" },
+    { value: "intel-12600k", label: "Intel Core i5-12600K", price: 319, image: "/images/cpu/12600k.png" },
+    { value: "intel-12700k", label: "Intel Core i7-12700K", price: 469, image: "/images/cpu/12700k.png" },
+    { value: "intel-12900k", label: "Intel Core i9-12900K", price: 619, image: "/images/cpu/12900k.png" },
+    { value: "intel-13900k", label: "Intel Core i9-13900K", price: 789, image: "/images/cpu/13900k.png" }
   ],
   motherboard: [
-    { value: "b550", label: "MSI B550 TOMAHAWK", price: 169 },
-    { value: "x570", label: "ASUS ROG X570", price: 299 },
-    { value: "b660", label: "MSI PRO B660M-A", price: 189 },
-    { value: "z690", label: "GIGABYTE Z690 AORUS", price: 329 },
-    { value: "z790", label: "ASUS ROG MAXIMUS Z790", price: 429 }
+    { value: "b550", label: "MSI B550 TOMAHAWK", price: 169, image: "/images/mb/b550.png" },
+    { value: "x570", label: "ASUS ROG X570", price: 299, image: "/images/mb/x570.png" },
+    { value: "b660", label: "MSI PRO B660M-A", price: 189, image: "/images/mb/b660.png" },
+    { value: "z690", label: "GIGABYTE Z690 AORUS", price: 329, image: "/images/mb/z690.png" },
+    { value: "z790", label: "ASUS ROG MAXIMUS Z790", price: 429, image: "/images/mb/z790.png" }
   ],
   ram: [
-    { value: "16gb-3200", label: "Corsair 16GB DDR4 3200MHz", price: 89 },
-    { value: "32gb-3600", label: "G.Skill 32GB DDR4 3600MHz", price: 179 },
-    { value: "32gb-4000", label: "G.Skill 32GB DDR4 4000MHz", price: 249 },
-    { value: "64gb-3600", label: "Crucial 64GB DDR4 3600MHz", price: 349 },
-    { value: "64gb-4000", label: "Corsair 64GB DDR4 4000MHz", price: 449 }
+    { value: "16gb-3200", label: "Corsair 16GB DDR4 3200MHz", price: 89, image: "/images/ram/corsair-16.png" },
+    { value: "32gb-3600", label: "G.Skill 32GB DDR4 3600MHz", price: 179, image: "/images/ram/gskill-32.png" },
+    { value: "32gb-4000", label: "G.Skill 32GB DDR4 4000MHz", price: 249, image: "/images/ram/gskill-32-4000.png" },
+    { value: "64gb-3600", label: "Crucial 64GB DDR4 3600MHz", price: 349, image: "/images/ram/crucial-64.png" },
+    { value: "64gb-4000", label: "Corsair 64GB DDR4 4000MHz", price: 449, image: "/images/ram/corsair-64.png" }
   ],
   storage: [
-    { value: "ssd-500", label: "Samsung 970 EVO 500GB NVMe", price: 79 },
-    { value: "ssd-1tb", label: "Samsung 970 EVO 1TB NVMe", price: 129 },
-    { value: "ssd-2tb", label: "Samsung 970 EVO 2TB NVMe", price: 229 },
-    { value: "ssd-4tb", label: "Samsung 990 PRO 4TB NVMe", price: 429 }
+    { value: "ssd-500", label: "Samsung 970 EVO 500GB NVMe", price: 79, image: "/images/storage/970-500.png" },
+    { value: "ssd-1tb", label: "Samsung 970 EVO 1TB NVMe", price: 129, image: "/images/storage/970-1tb.png" },
+    { value: "ssd-2tb", label: "Samsung 970 EVO 2TB NVMe", price: 229, image: "/images/storage/970-2tb.png" },
+    { value: "ssd-4tb", label: "Samsung 990 PRO 4TB NVMe", price: 429, image: "/images/storage/990-4tb.png" }
   ],
   psu: [
-    { value: "650w", label: "Corsair RM650x 650W", price: 89 },
-    { value: "750w", label: "Corsair RM750x 750W", price: 119 },
-    { value: "850w", label: "Corsair RM850x 850W", price: 149 },
-    { value: "1000w", label: "Corsair RM1000x 1000W", price: 199 },
-    { value: "1200w", label: "Corsair AX1200i 1200W", price: 249 }
+    { value: "650w", label: "Corsair RM650x 650W", price: 89, image: "/images/psu/rm650x.png" },
+    { value: "750w", label: "Corsair RM750x 750W", price: 119, image: "/images/psu/rm750x.png" },
+    { value: "850w", label: "Corsair RM850x 850W", price: 149, image: "/images/psu/rm850x.png" },
+    { value: "1000w", label: "Corsair RM1000x 1000W", price: 199, image: "/images/psu/rm1000x.png" },
+    { value: "1200w", label: "Corsair AX1200i 1200W", price: 249, image: "/images/psu/ax1200i.png" }
   ],
   cooling: [
-    { value: "air", label: "Noctua NH-D15", price: 89 },
-    { value: "air-premium", label: "be quiet! Dark Rock Pro 4", price: 119 },
-    { value: "aio-240", label: "NZXT Kraken X53 240mm", price: 129 },
-    { value: "aio-280", label: "NZXT Kraken X63 280mm", price: 149 },
-    { value: "aio-360", label: "NZXT Kraken X73 360mm", price: 179 },
-    { value: "aio-420", label: "Arctic Liquid Freezer II 420", price: 229 }
+    { value: "air", label: "Noctua NH-D15", price: 89, image: "/images/cooling/nh-d15.png" },
+    { value: "air-premium", label: "be quiet! Dark Rock Pro 4", price: 119, image: "/images/cooling/dark-rock-pro.png" },
+    { value: "aio-240", label: "NZXT Kraken X53 240mm", price: 129, image: "/images/cooling/kraken-x53.png" },
+    { value: "aio-280", label: "NZXT Kraken X63 280mm", price: 149, image: "/images/cooling/kraken-x63.png" },
+    { value: "aio-360", label: "NZXT Kraken X73 360mm", price: 179, image: "/images/cooling/kraken-x73.png" },
+    { value: "aio-420", label: "Arctic Liquid Freezer II 420", price: 229, image: "/images/cooling/arctic-420.png" }
   ]
 }
 

@@ -111,6 +111,7 @@ const Configure = () => {
               options={componentOptions[component]}
               value={selectedComponents[component]}
               onChange={(value) => handleComponentChange(value, component)}
+              type={component}
             />
           ))}
 

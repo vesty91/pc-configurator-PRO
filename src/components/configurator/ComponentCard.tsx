@@ -3,11 +3,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge"
 import { LucideIcon } from "lucide-react"
 import { componentRecommendations, componentPerformanceScores } from "@/data/components"
+import Image from "next/image"
 
 interface ComponentOption {
   value: string
   label: string
   price: number
+  image: string
 }
 
 interface ComponentCardProps {
@@ -43,47 +45,47 @@ const ComponentCard = ({
 
     switch (type) {
       case 'cpu':
-        return (
+        return scores.gaming !== undefined && scores.productivity !== undefined ? (
           <>
             <Badge variant="secondary">Gaming: {scores.gaming}/10</Badge>
             <Badge variant="secondary">Productivité: {scores.productivity}/10</Badge>
           </>
-        )
+        ) : null
       case 'motherboard':
-        return (
+        return scores.features !== undefined && scores.overclocking !== undefined ? (
           <>
             <Badge variant="secondary">Fonctionnalités: {scores.features}/10</Badge>
             <Badge variant="secondary">Overclocking: {scores.overclocking}/10</Badge>
           </>
-        )
+        ) : null
       case 'ram':
-        return (
+        return scores.performance !== undefined && scores.multitasking !== undefined ? (
           <>
             <Badge variant="secondary">Performance: {scores.performance}/10</Badge>
             <Badge variant="secondary">Multitâche: {scores.multitasking}/10</Badge>
           </>
-        )
+        ) : null
       case 'storage':
-        return (
+        return scores.speed !== undefined && scores.capacity !== undefined ? (
           <>
             <Badge variant="secondary">Vitesse: {scores.speed}/10</Badge>
             <Badge variant="secondary">Capacité: {scores.capacity}/10</Badge>
           </>
-        )
+        ) : null
       case 'psu':
-        return (
+        return scores.efficiency !== undefined && scores.headroom !== undefined ? (
           <>
             <Badge variant="secondary">Efficacité: {scores.efficiency}/10</Badge>
             <Badge variant="secondary">Marge: {scores.headroom}/10</Badge>
           </>
-        )
+        ) : null
       case 'cooling':
-        return (
+        return scores.performance !== undefined && scores.noise !== undefined ? (
           <>
             <Badge variant="secondary">Performance: {scores.performance}/10</Badge>
             <Badge variant="secondary">Bruit: {scores.noise}/10</Badge>
           </>
-        )
+        ) : null
       default:
         return null
     }
@@ -106,15 +108,24 @@ const ComponentCard = ({
           <SelectContent>
             {options.map((option) => (
               <SelectItem key={option.value} value={option.value}>
-                <div className="flex flex-col gap-2">
-                  <div>{option.label} - {option.price}€</div>
-                  <div className="flex gap-2 mt-1">
-                    {renderPerformanceScores(option.value)}
+                <div className="flex items-center gap-4">
+                  <div className="relative w-12 h-12">
+                    <img
+                      src={option.image}
+                      alt={option.label}
+                      className="object-contain w-full h-full"
+                    />
                   </div>
-                  <div className="flex flex-wrap gap-1 mt-1">
-                    {getRecommendations(option.value).map((rec, index) => (
-                      <Badge key={index} variant="outline">{rec}</Badge>
-                    ))}
+                  <div className="flex flex-col gap-2">
+                    <div>{option.label} - {option.price}€</div>
+                    <div className="flex gap-2 mt-1">
+                      {renderPerformanceScores(option.value)}
+                    </div>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {getRecommendations(option.value).map((rec, index) => (
+                        <Badge key={index} variant="outline">{rec}</Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </SelectItem>
