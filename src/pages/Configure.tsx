@@ -20,6 +20,7 @@ const Configure = () => {
   })
 
   const [warnings, setWarnings] = useState<string[]>([])
+  const [isAddingToCart, setIsAddingToCart] = useState(false)
 
   useEffect(() => {
     const newWarnings: string[] = []
@@ -64,7 +65,7 @@ const Configure = () => {
     }, 0)
   }
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const missingComponents = Object.entries(selectedComponents).filter(([_, value]) => !value)
     
     if (missingComponents.length > 0) {
@@ -85,10 +86,17 @@ const Configure = () => {
       return
     }
 
-    toast({
-      title: "Configuration ajoutée au panier",
-      description: `Configuration complète (${calculateTotal()}€) ajoutée au panier avec succès.`
-    })
+    setIsAddingToCart(true)
+    
+    // Simuler un délai d'ajout au panier
+    setTimeout(() => {
+      toast({
+        title: "Configuration ajoutée au panier",
+        description: `Configuration complète (${calculateTotal().toLocaleString("fr-FR")}€) ajoutée au panier avec succès.`,
+        duration: 3000,
+      })
+      setIsAddingToCart(false)
+    }, 1000)
   }
 
   const componentIcons = {
@@ -137,13 +145,21 @@ const Configure = () => {
           )}
 
           <Button 
-            className="w-full flex items-center justify-center gap-2 py-6 text-lg"
+            className="w-full flex items-center justify-center gap-2 py-6 text-lg relative overflow-hidden"
             onClick={handleAddToCart}
             variant={warnings.length > 0 ? "destructive" : "default"}
             size="lg"
+            disabled={isAddingToCart}
           >
-            <ShoppingCart className="h-6 w-6" />
-            Ajouter au panier ({calculateTotal()}€)
+            <ShoppingCart className={`h-6 w-6 transition-transform ${isAddingToCart ? 'translate-y-12' : ''}`} />
+            <span className={`transition-transform ${isAddingToCart ? 'translate-y-12' : ''}`}>
+              {isAddingToCart ? 'Ajout en cours...' : `Ajouter au panier (${calculateTotal().toLocaleString("fr-FR")}€)`}
+            </span>
+            {isAddingToCart && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-6 h-6 border-3 border-t-primary border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin" />
+              </div>
+            )}
           </Button>
         </div>
 
