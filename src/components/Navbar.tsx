@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X, ShoppingCart } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import Logo from './navbar/Logo';
+import DesktopMenu from './navbar/DesktopMenu';
+import MobileMenu from './navbar/MobileMenu';
+import { MenuItem } from './navbar/types';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
 
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     { name: 'Accueil', path: '/' },
     { name: 'Configurer votre PC', path: '/configure' },
     { name: 'Composants', path: '/components' },
@@ -21,40 +23,9 @@ const Navbar = () => {
     <nav className="bg-card shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0">
-              <span className="text-2xl font-bold text-primary">PC Builder Pro</span>
-            </Link>
-          </div>
+          <Logo />
           
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              {menuItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <div className="relative">
-                <Link to="/cart">
-                  <Button variant="ghost" size="icon" className="ml-4 relative">
-                    <ShoppingCart className="h-5 w-5" />
-                    {cartCount > 0 && (
-                      <Badge 
-                        variant="destructive" 
-                        className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs"
-                      >
-                        {cartCount}
-                      </Badge>
-                    )}
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
+          <DesktopMenu menuItems={menuItems} cartCount={cartCount} />
 
           <div className="md:hidden">
             <Button
@@ -69,37 +40,12 @@ const Navbar = () => {
         </div>
       </div>
 
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {menuItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
-            <div className="relative inline-block">
-              <Link to="/cart">
-                <Button variant="ghost" size="icon" className="ml-2 relative">
-                  <ShoppingCart className="h-5 w-5" />
-                  {cartCount > 0 && (
-                    <Badge 
-                      variant="destructive" 
-                      className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs"
-                    >
-                      {cartCount}
-                    </Badge>
-                  )}
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
+      <MobileMenu 
+        isOpen={isOpen}
+        menuItems={menuItems}
+        cartCount={cartCount}
+        onItemClick={() => setIsOpen(false)}
+      />
     </nav>
   );
 };
